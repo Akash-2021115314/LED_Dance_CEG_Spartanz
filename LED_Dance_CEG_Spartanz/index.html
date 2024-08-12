@@ -1,0 +1,80 @@
+<!DOCTYPE HTML><html>
+<head>
+   <style>
+        html,body{
+            height: 90%;
+        }
+        body{
+            background-color: rgb(211, 41, 41);
+        }
+        .btn{
+            border : none ; 
+            background-color: rgb(0, 0, 0)  ;
+            padding : 50px ; 
+            color : white   ; 
+            box-shadow: inset 12px 12px 12px rgb(42, 42, 40);
+            border-radius : 50% ; 
+            font-size: 20px;
+        }
+        .container{
+            display:flex ; 
+            align-items: center;
+            justify-content: center;
+            flex-direction: column ;
+            height: 75% ; 
+        }
+        
+
+   </style>
+  
+</head>
+<body>
+    <h1 style="text-align: center;">LED Dance</h1>
+
+    <p id="display" style="text-align: center; font-size: 25px;">LED suit is off right now</p>
+    <div class = "container" >
+        <button class="btn" id="btn" onclick="callLEDMaster()">On</button>
+    </div>
+    <h1 style="text-align: center; " >CEG Spartanz</h1>
+
+    <script>
+        let toggle_value = 1 ; 
+        function callLEDMaster(){
+            let btn = document.getElementById("btn")
+            let display =document.getElementById("display")
+            //server send code here 
+            toggle_value = (toggle_value == 1) ? 0 : 1 ;
+            btn.innerHTML = (btn.innerHTML === "On") ? "Off" : "On" ; 
+            display.innerHTML = (display.innerHTML === "LED suit is off right now") ? "LED suit is on right now" : "LED suit is off right now";
+        }
+
+        
+        // WebSocket connection to the ESP-NOW web server
+        const socket = new WebSocket('ws://your_esp32_ip_address/events');
+
+        // Event listener for when the WebSocket connection is open
+        socket.addEventListener('open', (event) => {
+        console.log('WebSocket connection opened');
+        });
+
+        // Event listener for when a message is received from the server
+        socket.addEventListener('message', (event) => {
+        console.log('Message from server:', event.data);
+        // You can handle the received message here if needed
+        });
+
+        // Event listener for when the WebSocket connection is closed
+        socket.addEventListener('close', (event) => {
+        console.log('WebSocket connection closed');
+        });
+
+        // Function to send a message to the ESP-NOW web server
+        function sendMessage() {
+        // Send a custom message (you can customize the message format)
+        const message = { id: 1, toggle_on: 1 }; // Customize the message content
+        socket.send(JSON.stringify(message));
+        }
+    </script>
+    </body> 
+</html>
+

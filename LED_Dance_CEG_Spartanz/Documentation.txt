@@ -1,0 +1,18 @@
+Libraries installed using zipped folder method 
+
+1. Arduino_JSON 
+https://github.com/arduino-libraries/Arduino_JSON
+
+2. 
+
+
+________________________________________________________________________
+
+Some notes on the platform io 
+
+when platform io builds the project it consider all the cpp files in the src folder 
+if it detects multiple void setup and void loop , the build will fail 
+
+
+so have all the code in other cpp file commented 
+have the code the only in main.cpp when building and uploading the code to the board

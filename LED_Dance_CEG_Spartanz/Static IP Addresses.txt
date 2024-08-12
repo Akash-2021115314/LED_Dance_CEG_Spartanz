@@ -1,0 +1,5 @@
+Static ip addresses of ESP32 
+
+Board 1 : 192.168.139.150
+Board 2 : 192.168.139.127
+Board 3 : 192.168.139.60
